@@ -5,7 +5,7 @@ umask 002
 # Load the dotfiles
 for FILE in alias functions prompt 
 do
-	[ -f "$FILE" ] && source "$FILE";
+	[ -f "~/.$FILE" ] && source "~/.$FILE";
 done
 unset FILE
 
