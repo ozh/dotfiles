@@ -14,6 +14,15 @@ PATH=~/bin:$PATH
 PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export PATH=$PATH
 
+# default editor
 export EDITOR=~/bin/nano
-export HISTCONTROL=ignoredups:erasedups
 
+# Keep a reasonably long history.
+export HISTSIZE=4096;
+# Keep even more history lines inside the file, so we can still look up
+# previous commands without needlessly cluttering the current shell's history.
+export HISTFILESIZE=16384;
+# When executing the same command twice or more in a row, only store it once.
+export HISTCONTROL=ignoredups:erasedups
+# Timestamp history
+export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S  "
