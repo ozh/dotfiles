@@ -3,7 +3,7 @@
 umask 002
 
 # Load the dotfiles
-for FILE in alias functions prompt 
+for FILE in alias functions prompt extras
 do
 	[ -f ~/.$FILE ] && source ~/.$FILE;
 done
