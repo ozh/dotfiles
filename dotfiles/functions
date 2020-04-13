@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 
 function histgrep {
     history | grep $1
