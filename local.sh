@@ -4,7 +4,7 @@ cd ~
 mkdir -p ~/bin
 
 # Install precompiled nano 4.9.2 and highlight files
-[ ! -f ~/bin/nano ] && wget -O ~/bin/nano https://ozh.org/nano/nano && chmod + ~/bin/nano
+[ ! -f ~/bin/nano ] && wget -O ~/bin/nano https://ozh.org/nano/nano && chmod +x ~/bin/nano
 [ ! -d ~/.nano/ ]   && curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 # Install my binaries
