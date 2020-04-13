@@ -3,7 +3,7 @@
 cd ~
 
 # Install precompiled nano 4.9.2 and highlight files
-[ ! -f ~/bin/nano ] && wget -q -O ~/bin/nano https://ozh.org/nano/nano
+[ ! -f ~/bin/nano ] && wget -O ~/bin/nano https://ozh.org/nano/nano && chmod + ~/bin/nano
 [ ! -d ~/.nano/ ]   && curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 # Install my binaries
@@ -11,6 +11,7 @@ mkdir -p ~/bin
 for FILE in $(ls ~/dotfiles/bin);
 do
     cp ~/dotfiles/bin/$FILE ~/bin
+    chmod +x ~/bin/$FILE
 done
 
 # Create .dotfiles from dotfiles/files (backup old ones and move newer ones)
