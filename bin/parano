@@ -1,0 +1,28 @@
+#!/bin/bash
+cd ~
+
+declare -A PATTERNS=(
+    [gzinf]="gzinflate"
+    [malsj]="var el,ar,ar2"
+    [b64]="base64_decode"
+    [charset]="Windows-1251"
+    [phpos]="PHP_OS"
+    [h1load]="<h1>Loading..."
+    [eval]="eval("
+    [scandir]="scandir"
+    [fileputcontents]="file_put_contents"
+    [uploadform]="multipart/form-data"
+)
+
+for K in "${!PATTERNS[@]}"
+do
+    FILENAME="parano_$K"
+    SIZE_BEF=0
+    test -f $FILENAME && SIZE_BEF=$(stat -c%s $FILENAME);
+    echo -ne "Pattern: ${PATTERNS[$K]}\\t\\t"
+    grep -r "${PATTERNS[$K]}" $(listsites) > $FILENAME
+    SIZE_AFT=$(stat -c%s "$FILENAME")
+    VARIATION=$(expr $SIZE_AFT - $SIZE_BEF)
+    echo -e " --> parano_$K \t ($VARIATION)"
+done
+

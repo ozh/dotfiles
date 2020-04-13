@@ -1,0 +1,16 @@
+# ~/.bash_profile: executed by bash for login shells.
+
+umask 002
+
+# Load the dotfiles
+for FILE in alias functions prompt 
+do
+	[ -f "$FILE" ] && source "$FILE";
+done
+unset FILE
+
+# env
+export PATH=~/bin:$PATH
+export EDITOR=~/bin/nano
+export HISTCONTROL=ignoredups:erasedups
+

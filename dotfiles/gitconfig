@@ -1,0 +1,6 @@
+[user]
+    name = ozh
+    email = ozh@ozh.org
+    signingkey = 26D569E6651ADDEB
+[commit]
+    gpgsign = true

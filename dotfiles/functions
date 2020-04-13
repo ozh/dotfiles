@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function histgrep {
+    history | grep $1
+}
+
+function getmodif {
+   stat -c "%y" $1 | cut -d" " -f1 | sed -e 's/..//' -e 's/-//g'
+}
