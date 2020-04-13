@@ -9,8 +9,11 @@ do
 done
 unset FILE
 
-# env
-export PATH=~/bin:$PATH
+# remove duplicates in PATH : when we re-run this script, it wont add ~/bin again
+PATH=~/bin:$PATH
+PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+export PATH=:$PATH
+
 export EDITOR=~/bin/nano
 export HISTCONTROL=ignoredups:erasedups
 
