@@ -4,7 +4,6 @@ alias ll='ls -l'
 alias lla='ls -la'
 alias lx='ls -l --color | awk '\''{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf("%0o ",k);print}'\'''
 alias rm='rm -i'
-alias crontab="crontab -i"
 alias pico='nano -w'
 alias cls='clear'
 alias du='du -ch'
