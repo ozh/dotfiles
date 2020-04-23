@@ -1,2 +1,2 @@
 #!/bin/bash
-for dir in $(~/bin/listsites); do pico -w $dir/.htaccess; done
+for dir in $(~/bin/listsites); do ~/bin/nano -w $dir/.htaccess; done
