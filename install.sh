@@ -7,6 +7,11 @@ mkdir -p ~/bin
 [ ! -f ~/bin/nano ] && wget -O ~/bin/nano https://ozh.org/nano/nano && chmod +x ~/bin/nano
 [ ! -d ~/.nano/ ]   && curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
+# if we have a .nanorc, add tabsize
+if [ -f ~/.nanorc ] && ! grep -q "set tabsize 4" ~/.nanorc ; then
+    echo -e "set tabsize 4\n$(cat ~/.nanorc)" > ~/.nanorc
+fi
+
 # Install my binaries
 for FILE in $(ls ~/dotfiles/bin);
 do

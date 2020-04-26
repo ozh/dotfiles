@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# help and exit
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
+    echo "Usage: `basename $0` [-h|--help] [ARG]"
+    echo "Scans all access.log* files for the [ARG] pattern, and sorts matching URL in ~/404"
+    echo "Options :"
+    echo "   -h, --help      display help"
+    echo "   [ARG]           optional: what to search for, defaults to '\" 404 '"
+    echo " "
+    exit 0
+fi
+
+# default value or script param
+VAR=${1:-'" 404'}
+
+echo "Searching access logs for: $VAR"
+echo > ~/404.tmp
+echo > ~/404
+
+for DIR in $(ls -d ~/logs/*/*)
+do
+    echo -n "Logs in $DIR "
+    for FILE in $(find $DIR/ -type f -name "access.log*" ! -name "*gz")
+    do
+        echo -n "."
+        cat $FILE | grep "$VAR" | cut -d \  -f 7 >> ~/404.tmp
+    done
+    echo " "
+done
+
+# output the file except blank lines, sort, uniq with count, reverse sort, to ~/404
+cat ~/404.tmp | grep . | sort | uniq -c | sort -r > ~/404
+rm -f ~/404.tmp
+
+echo "Matching URLs in ~/404 ($(cat ~/404 | wc -l) found)"
