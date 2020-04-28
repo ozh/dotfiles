@@ -15,22 +15,30 @@ fi
 VAR=${1:-'" 404'}
 
 echo "Searching access logs for: $VAR"
-echo > ~/404.tmp
 echo > ~/404
+COUNT=0
 
-for DIR in $(ls -d ~/logs/*/*)
+for DIR in $(listsites -b)
 do
-    echo -n "Logs in $DIR "
-    for FILE in $(find $DIR/ -type f -name "access.log*" ! -name "*gz")
-    do
-        echo -n "."
-        cat $FILE | grep "$VAR" | cut -d \  -f 7 >> ~/404.tmp
-    done
-    echo " "
+    LOG="$HOME/logs/$DIR"
+    if [ -d $LOG ]; then
+        echo > ~/404.tmp
+        echo -n "Logs in $DIR "
+        echo "## $DIR" >> ~/404
+        for FILE in $(ls $LOG/*/access.log* | grep -v ".gz")
+        do
+            echo -n "."
+            cat $FILE | grep "$VAR" | cut -d \  -f 7 >> ~/404.tmp
+            ((COUNT=COUNT+$(cat ~/404.tmp | wc -l)))
+        done
+        # output the file except blank lines, sort, uniq with count, reverse sort
+        cat ~/404.tmp | grep . | sort | uniq -c | sort -r >> ~/404
+        echo " " >> ~/404
+        echo " "
+    fi
 done
 
-# output the file except blank lines, sort, uniq with count, reverse sort, to ~/404
-cat ~/404.tmp | grep . | sort | uniq -c | sort -r > ~/404
 rm -f ~/404.tmp
 
-echo "Matching URLs in ~/404 ($(cat ~/404 | wc -l) found)"
+echo "Matching URLs in ~/404 ($COUNT found)"
+
