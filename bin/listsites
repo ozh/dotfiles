@@ -1,2 +1,23 @@
 #!/bin/bash
-find ~/ -maxdepth 1 -type d \( -name "*.*" ! -name ".*" \)
+
+# help and exit
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
+    echo "Usage: `basename $0` [-h|--help,-b|--base]"
+    echo "List sites, returning full path or (with -b) basename only"
+    echo "Flags :"
+    echo "   -h, --help      display help"
+    echo "   -b, --base      return only basename"
+    echo " "
+    exit 0
+fi
+
+if [ "$1" == "-b" ] || [ "$1" == "--base" ] ; then
+    CUR=$PWD
+    cd ~
+    SITES=$(ls -d *.*)
+    cd $CUR
+else
+    SITES=$(ls -d ~/*.*)
+fi
+
+echo $SITES
