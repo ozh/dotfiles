@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# help and exit
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
+    echo "Usage: `basename $0` [FLAGS] [DIR]"
+    echo "List files modified since the last specified number of days"
+    echo "If [DIR] isn't specified, assume current directory."
+    echo "Flags:"
+    echo "   -h, --help                  display help"
+    echo "   -d [DAYS], --days [DAYS]    since how many days (default 1)"
+    echo "Examples:"
+    echo "  Files modified during the last 3 days in dir 'somedir': `basename $0` -d 3 somedir"
+    echo "  Files modified during the last day in current dir: `basename $0`"
+    exit 0
+fi
+
+DAYS=1
+DIR=$PWD
+
+if [ "$1" == "-d" ] || [ "$1" == "--days" ] ; then
+    DAYS=$2
+    if [ ! -z $3 ] ; then
+        DIR="$3"
+    fi
+else
+    if [ ! -z $1 ] ; then
+        DIR=$1
+    fi
+fi
+
+echo "Modified files in $DIR during the last $DAYS day(s) :"
+echo "$ find $DIR -mtime -$DAYS -print"
+echo " "
+
+find $DIR -mtime -$DAYS -print
+
+echo " "
+
