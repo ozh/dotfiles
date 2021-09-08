@@ -17,12 +17,17 @@ export PATH=$PATH
 # default editor
 export EDITOR=~/bin/nano
 
-# Keep a reasonably long history.
-export HISTSIZE=4096;
-# Keep even more history lines inside the file, so we can still look up
-# previous commands without needlessly cluttering the current shell's history.
-export HISTFILESIZE=16384;
-# When executing the same command twice or more in a row, only store it once.
-export HISTCONTROL=ignoredups:erasedups
-# Timestamp history
-export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S  "
+# number of commands to remember in the command history (the default value is 500)
+export HISTSIZE=10000
+# maximum number of lines contained in the history file (the default value is 500)
+export HISTFILESIZE=10000
+# Append to history instead of overwrite
+shopt -s histappend
+# Ignore redundant or space commands and erase duplicates
+HISTCONTROL=ignoreboth:erasedups
+# Ignore more
+HISTIGNORE='ls:ll:ls -alh:pwd:clear:history'
+# Multiple commands on one line show up as a single line
+shopt -s cmdhist
+# Append new history lines, clear the history list, re-read the history list, print prompt.
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
