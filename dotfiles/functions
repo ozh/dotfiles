@@ -1,9 +1,0 @@
-
-function histgrep {
-    history | grep $1
-}
-
-function crontab {
-    [[ $@ =~ -[iel]*r ]] && echo '"r" not allowed' || command crontab "$@"
-}
-
