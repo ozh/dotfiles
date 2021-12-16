@@ -1,2 +1,0 @@
-#!/bin/bash
-for dir in $(~/bin/listsites); do ~/bin/nano -w $dir/.htaccess; done

@@ -1,7 +1,0 @@
-#!/bin/bash
-for DIR in $(listsites); do
-    echo CHMOD DIRS IN $DIR
-    find ~/$DIR -type d -exec chmod 755 {} \;
-    echo CHMOD FILES IN $DIR
-    find ~/$DIR -type f -exec chmod 644 {} \;
-done;
