@@ -7,7 +7,8 @@ mkdir -p ~/bin
 [ ! -f ~/bin/nano ] && wget -O ~/bin/nano https://ozh.org/nano/nano && chmod +x ~/bin/nano
 [ ! -d ~/.nano/ ]   && curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
-# Install precompiled bat 0.18.0 
+# Install precompiled bat 0.22.0 
+# When there is new binaries: https://github.com/sharkdp/bat/releases look for bat-vX.XX.X-x86_64-unknown-linux-musl.tar.gz
 [ ! -f ~/bin/bat ] && wget -O ~/bin/bat https://ozh.org/bat/bat && chmod +x ~/bin/bat
 
 # if we have a .nanorc, add tabsize
