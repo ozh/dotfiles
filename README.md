@@ -1,8 +1,6 @@
 # dotfiles
 
-My dotfiles, how unique and original
-
-Meant to be run when I create a new user, and to sync dotfiles and binaries across machines/users
+My dotfiles for my shared hosting servers
 
 ### installation
 
