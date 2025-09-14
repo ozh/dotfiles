@@ -3,7 +3,12 @@ function histgrep {
     history | grep $1
 }
 
+# prevent accidental crontab removal
 function crontab {
     [[ $@ =~ -[iel]*r ]] && echo '"r" not allowed' || command crontab "$@"
 }
 
+# checkout to default branch
+function gcm {
+    git fetch && git checkout $(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+}
