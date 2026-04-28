@@ -1,0 +1,25 @@
+# ███╗   ███╗ ██████╗ ████████╗██████╗ 
+# ████╗ ████║██╔═══██╗╚══██╔══╝██╔══██╗
+# ██╔████╔██║██║   ██║   ██║   ██║  ██║
+# ██║╚██╔╝██║██║   ██║   ██║   ██║  ██║
+# ██║ ╚═╝ ██║╚██████╔╝   ██║   ██████╔╝
+# ╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚═════╝ 
+                                     
+
+# Show MOTD only if last display was more than 2 hours ago
+_motd_stamp="$HOME/.cache/motd_last_shown"
+_motd_delay=$((2 * 3600))  # 2 hours in seconds
+
+
+if [[ ! -f "$_motd_stamp" ]] || \
+   (( $(date +%s) - $(date -r "$_motd_stamp" +%s) > _motd_delay )); then
+   
+    echo "💻 $(hostname -I | cut -d' ' -f1)"
+    echo "📆 $(date)"
+    echo "🔋 $(uptime -p) (since $(uptime -s))"
+    command vcgencmd >/dev/null 2>&1 && echo "🌡️ $(vcgencmd  measure_temp | cut -d= -f2)"
+
+    touch "$_motd_stamp"
+fi
+
+unset _motd_stamp _motd_delay

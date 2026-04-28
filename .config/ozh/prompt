@@ -1,0 +1,90 @@
+# ██████╗ ██████╗  ██████╗ ███╗   ███╗██████╗ ████████╗
+# ██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██╔══██╗╚══██╔══╝
+# ██████╔╝██████╔╝██║   ██║██╔████╔██║██████╔╝   ██║   
+# ██╔═══╝ ██╔══██╗██║   ██║██║╚██╔╝██║██╔═══╝    ██║   
+# ██║     ██║  ██║╚██████╔╝██║ ╚═╝ ██║██║        ██║   
+# ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝   
+
+# Shell colors -- safe for PS1 with \[ \]
+reset="\[\033[0m\]"      # Neutral
+black="\[\033[0;30m\]"  # Black
+dgray="\[\033[1;30m\]"  # Dark Gray
+red="\[\033[0;31m\]"  # Red
+lred="\[\033[1;31m\]"  # Light Red
+green="\[\033[0;32m\]"  # Green
+lgreen="\[\033[1;32m\]"  # Light Green
+brown="\[\033[0;33m\]"  # Brown
+yellow="\[\033[1;33m\]"  # Yellow
+blue="\[\033[0;34m\]"  # Blue
+lblue="\[\033[1;34m\]" # Light Blue
+purple="\[\033[0;35m\]" # Purple
+lpurple="\[\033[1;35m\]" # Light Purple
+cyan="\[\033[0;36m\]" # Cyan
+lcyan="\[\033[1;36m\]" # Light Cyan
+lgray="\[\033[0;37m\]" # Light Gray
+white="\[\033[1;37m\]" # White
+
+# Git-aware prompt
+source /usr/lib/git-core/git-sh-prompt
+
+# Terminal title
+set_terminal_title() {
+    local host=""
+
+    # Add hostname if connected via SSH
+    if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_CLIENT" ]; then
+        host="🖥️ $(hostname -s):"
+    fi
+
+    # Commands to ignore (internal/prompt-related)
+    local ignore_cmds="set_terminal_title __build_ps1 prompt_command precmd history"
+
+    local prog=""
+    if [ -n "$BASH_COMMAND" ]; then
+        local cmd
+        cmd=$(echo "$BASH_COMMAND" | awk '{print $1}')
+
+        if [[ "$cmd" == "ssh" ]]; then
+            # Extract destination from ssh command (last non-option argument)
+            local ssh_dest
+            ssh_dest=$(echo "$BASH_COMMAND" | grep -oP '(?<=\s)(?!-)\S+' | tail -1)
+            echo -ne "\033]0;${USER}@${ssh_dest} - ...\007"
+            return
+        fi
+
+        if [[ ! " $ignore_cmds " =~ " $cmd " ]]; then
+            prog=" 👉 $cmd"
+        fi
+    fi
+
+    echo -ne "\033]0;${host}${PWD}${prog}\007"
+}
+trap 'set_terminal_title' DEBUG
+
+# Prompt configuration
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWCOLORHINTS=1
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_SHOWCONFLICTSTATE="yes"
+GIT_PS1_STATESEPARATOR="•"
+
+# Build PS1
+__build_ps1() {
+    local host=""
+    # Add hostname if connected via SSH to remote
+    if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_CLIENT" ]; then
+        host="${green}\u@${lgreen}\h "
+    fi
+
+    local base="${host}${brown}\w ${red}"
+    local gitpart=$(__git_ps1 "%s")
+    PS1="${VIRTUAL_ENV_PROMPT}${base}${gitpart}${white}❯ ${reset}"
+}
+
+# Set terminal title to current directory
+export PROMPT_COMMAND="${PROMPT_COMMAND:+${PROMPT_COMMAND};}set_terminal_title;__build_ps1"
+
+# PS2 : continuation prompt
+PS2="${yellow}→ ${reset}"
+export PS2

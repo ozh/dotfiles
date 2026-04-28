@@ -1,0 +1,24 @@
+# ██████╗  █████╗ ████████╗██╗  ██╗
+# ██╔══██╗██╔══██╗╚══██╔══╝██║  ██║
+# ██████╔╝███████║   ██║   ███████║
+# ██╔═══╝ ██╔══██║   ██║   ██╔══██║
+# ██║     ██║  ██║   ██║   ██║  ██║
+# ╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+
+# Directories to prepend to PATH, in reverse priority order
+# (last in this list = highest priority)
+path_dirs=(
+    /usr/local/sbin
+    /usr/local/bin
+    "$HOME/.local/bin"
+    "$HOME/bin"
+    # "$HOME/.cargo/bin"
+    # "$HOME/.go/bin"
+)
+
+for dir in "${path_dirs[@]}"; do
+    [[ -d "$dir" && ":$PATH:" != *":$dir:"* ]] && PATH="$dir:$PATH"
+done
+unset dir path_dirs
+
+export PATH

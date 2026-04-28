@@ -1,0 +1,17 @@
+#  █████╗ ██╗     ██╗ █████╗ ███████╗
+# ██╔══██╗██║     ██║██╔══██╗██╔════╝
+# ███████║██║     ██║███████║███████╗
+# ██╔══██║██║     ██║██╔══██║╚════██║
+# ██║  ██║███████╗██║██║  ██║███████║
+# ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═╝╚══════╝
+
+alias ls="ls --color=auto"
+alias ll='ls -l'
+alias lsd='ls -AF | grep "/$" | column'		# list dirs only
+alias lsf='ls -AF | grep -v "/$" | column'  # list files only
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias rm='rm -i'
+alias cd-="cd ~-"
+alias cdp="cd ~-"

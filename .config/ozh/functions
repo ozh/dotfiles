@@ -1,0 +1,53 @@
+# ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
+# ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
+# █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
+# ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
+# ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
+# ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+                                                                          
+# history search
+hs() { history | grep --color=auto "$@"; }
+alias histgrep=hs
+
+# prevent accidental crontab removal
+crontab() {
+    [[ $@ =~ -[iel]*r ]] && echo '"r" not allowed' || command crontab "$@"
+}
+
+# checkout to default branch
+gcm() {
+    git fetch && git checkout $(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+}
+
+# mkdir && cd
+mkcd() {
+	mkdir -p "$@" 2> >(sed s/mkdir/mkcd/ 1>&2) && cd "$_";
+}
+
+# detect machine : 'desktop' or 'raspi' or 'shared' 
+detect_machine_type() {
+    # Explicit tag file takes priority
+    local tag_file=~/.config/ozh/machine_type
+    if [[ -f "$tag_file" ]]; then
+        cat "$tag_file"
+        return
+    fi
+    
+    local arch
+    arch=$(uname -m)
+
+    # Raspberry Pi: aarch64 + mention in cpuinfo
+    if [[ "$arch" == "aarch64" ]] && grep -qi "raspberry" /proc/cpuinfo 2>/dev/null; then
+        echo "raspi"
+        return
+    fi
+
+    # Shared hosting: no sudo + grsec kernel
+    if ! sudo -n true 2>/dev/null && uname -r | grep -qi "grsec"; then
+        echo "shared"
+        return
+    fi
+
+    # By default: desktop
+    echo "desktop"
+}

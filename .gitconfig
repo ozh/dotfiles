@@ -1,0 +1,30 @@
+[user]
+	name = ozh
+	email = ozh@ozh.org
+    signingkey = B60CE74EAE5EE8E8
+[commit]
+    gpgsign = true	
+[init]
+	defaultBranch = master
+[core]
+	autocrlf = input
+	eol = lf
+	safecrlf = warn
+	longpaths = true
+	ignoreCase = false
+[http]
+	postBuffer = 524288000
+[pull]
+	rebase = false
+[gui]
+	pruneduringfetch = true
+[smartgit "submodule"]
+	fetchalways = false
+	update = true
+	initializenew = true
+[push]
+	recurseSubmodules = check
+[diff]
+	tool = meld
+[difftool]
+	prompt = false
