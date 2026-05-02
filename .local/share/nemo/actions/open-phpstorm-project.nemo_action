@@ -1,0 +1,10 @@
+[Nemo Action]
+Name=Open folder as PHPStorm project
+Comment=Open this folder as a PHPStorm project
+Exec=phpstorm %F
+Icon-Name=phpstorm
+Selection=Any
+Extensions=dir;
+Quote=double
+Dependencies=
+EscapeSpaces=false

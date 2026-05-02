@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=Open in SmartGit
+Comment=Open this folder in SmartGit
+Exec=bash -c 'f="%F"; [ -f "$f" ] && f=$(dirname "$f"); /home/ozh/opt/smartgit/bin/smartgit.sh "$f"'
+Icon-Name=smartgit
+Selection=any
+Extensions=dir;any;
+Terminal=false

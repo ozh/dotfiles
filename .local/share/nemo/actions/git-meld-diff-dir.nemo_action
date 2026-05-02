@@ -1,0 +1,7 @@
+[Nemo Action]
+Name=Git diff with Meld
+Comment=Show uncommitted changes in Meld
+Exec=/home/ozh/.local/share/nemo/actions/git-meld-diff.sh %F
+Icon-Name=meld
+Selection=S
+Mimetypes=inode/directory;
