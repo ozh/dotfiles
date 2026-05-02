@@ -27,6 +27,23 @@ white="\[\033[1;37m\]" # White
 # Git-aware prompt
 source /usr/lib/git-core/git-sh-prompt
 
+# Set a random background color for each new terminal window
+_set_random_bg() {
+    local colors=(
+        "18;18;58"      # dark navy
+        "30;10;10"      # dark red
+        "10;30;10"      # dark green
+        "40;25;0"       # dark amber
+        "20;0;40"       # dark purple
+        "0;30;35"       # dark teal
+        "35;20;0"       # dark brown
+        "0;20;40"       # dark blue
+    )
+    local pick="${colors[$((RANDOM % ${#colors[@]}))]}"
+    printf '\033]11;rgb:%s\007' "$(echo "$pick" | awk -F';' '{printf "%02x00/%02x00/%02x00",$1,$2,$3}')"
+}
+_set_random_bg
+
 # Terminal title
 set_terminal_title() {
     local host=""
@@ -67,7 +84,7 @@ GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWCOLORHINTS=1
 GIT_PS1_SHOWUPSTREAM="auto"
 GIT_PS1_SHOWCONFLICTSTATE="yes"
-GIT_PS1_STATESEPARATOR="•"
+GIT_PS1_STATESEPARATOR=" "
 
 # Build PS1
 __build_ps1() {

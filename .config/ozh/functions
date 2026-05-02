@@ -51,3 +51,13 @@ detect_machine_type() {
     # By default: desktop
     echo "desktop"
 }
+
+# install packages
+inst() {
+    sudo apt install "$@"
+}
+
+# uninstall packages
+uninst() {
+    sudo apt purge "$@" && sudo apt autoremove
+}
