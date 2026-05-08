@@ -61,3 +61,32 @@ inst() {
 uninst() {
     sudo apt purge "$@" && sudo apt autoremove
 }
+
+# 
+cdhere() {
+    # Get all Nemo window IDs
+    nemo_ids=$(xdotool search --classname nemo)
+
+    # Get stacking order (last = most recently focused)
+    stacking=$(xprop -root _NET_CLIENT_LIST_STACKING \
+     | grep -oP '0x[0-9a-f]+' \
+     | xargs -I{} printf "%d\n" {})
+
+    # Find the Nemo window highest in the stack
+    last_nemo=""
+    while read -r wid; do
+       if echo "$nemo_ids" | grep -qx "$wid"; then
+           last_nemo="$wid"
+       fi
+    done <<< "$stacking"
+
+    if [[ -n "$last_nemo" ]]; then
+        title=$(xdotool getwindowname "$last_nemo")
+        if [[ "$title" == "Home" ]]; then
+            cd ~
+        else
+            path="${title##* - }"
+            cd "$path"
+        fi
+    fi
+}

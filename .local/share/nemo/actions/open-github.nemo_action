@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=Open in Github
+Comment=Open this folder in Github Desktop
+Exec=bash -c 'f="%F"; [ -f "$f" ] && f=$(dirname "$f"); /usr/bin/github "$f"'
+Icon-Name=github-desktop
+Selection=any
+Extensions=dir;any;
+Terminal=false

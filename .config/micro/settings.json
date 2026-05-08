@@ -7,5 +7,6 @@
     "diffgutter": true,
     "pluginrepos": [],
     "statusformatl": "$(modified)$(overwrite)$(filename):$(line),$(col) $(status.paste) | $(opt:encoding) $(opt:fileformat) | $(opt:filetype)",
-    "statusformatr": "$(bind:ToggleKeyMenu): keys, $(bind:ToggleHelp): help"
+    "statusformatr": "$(bind:ToggleKeyMenu): keys, $(bind:ToggleHelp): help",
+    "tabstospaces": true
 }
