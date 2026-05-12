@@ -16,3 +16,5 @@ alias rm='rm -i'
 alias cd-="cd ~-"
 alias cdp="cd ~-"
 alias term="x-terminal-emulator"
+alias beep="paplay /usr/share/sounds/speech-dispatcher/test.wav"
+
