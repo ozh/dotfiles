@@ -15,3 +15,4 @@ alias egrep='egrep --color=auto'
 alias rm='rm -i'
 alias cd-="cd ~-"
 alias cdp="cd ~-"
+alias term="x-terminal-emulator"
