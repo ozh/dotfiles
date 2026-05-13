@@ -62,7 +62,7 @@ uninst() {
     sudo apt purge "$@" && sudo apt autoremove
 }
 
-# 
+# `cd` to the directory of the topmost Nemo window
 cdhere() {
     # Get all Nemo window IDs
     nemo_ids=$(xdotool search --classname nemo)
@@ -89,4 +89,13 @@ cdhere() {
             cd "$path"
         fi
     fi
+}
+
+# Opposite of `cdhere`: open window manager of the current directory in terminal
+xhere() {
+    if [[ ! -d "$PWD" ]]; then
+        echo "xhere: directory does not exist: $PWD" >&2
+        return 1
+    fi
+    (nemo "$PWD" > /dev/null 2>&1 &)
 }
