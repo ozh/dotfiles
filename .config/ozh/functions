@@ -99,3 +99,57 @@ xhere() {
     fi
     (nemo "$PWD" > /dev/null 2>&1 &)
 }
+
+# Delete git branches (merged or remote tracking is "gone")
+gclean() {
+    git fetch --prune
+
+    # Branches merged locally (works with merge commits)
+    local merged
+    merged=$(git branch --merged | grep -v '\*\|main\|dev\|master')
+
+    # Branches whose remote tracking is gone (works with squash/rebase merges)
+    local gone
+    gone=$(git branch -vv | grep ': gone]' | awk '{print $1}')
+
+    # Combine and deduplicate
+    local all
+    all=$(echo -e "$merged\n$gone" | sort -u | grep -v '^$')
+
+    if [ -z "$all" ]; then
+        echo "Nothing to clean."
+        return
+    fi
+
+    echo "Branches to delete:"
+    echo
+
+    while IFS= read -r branch; do
+        # Last commit date on branch
+        local last_commit
+        last_commit=$(git log -1 --format="%ar" "$branch" 2>/dev/null)
+
+        # Merge date: date the branch tip was merged into current branch (only works with merge commits)
+        local merged_on
+        merged_on=$(git log --merges --format="%ar" --ancestry-path "${branch}..HEAD" 2>/dev/null | tail -1)
+
+        local info="  - $branch (last commit: $last_commit"
+        if [ -n "$merged_on" ]; then
+            info+=" | merged: $merged_on"
+        else
+            info+=" | merged: via squash/rebase or remote deleted"
+        fi
+        info+=")"
+        echo "$info"
+
+    done <<< "$all"
+
+    echo
+    read -rp "Confirm deletion? [y/N] " confirm
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        echo "$all" | xargs git branch -D
+        echo "Done."
+    else
+        echo "Aborted."
+    fi
+}

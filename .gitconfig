@@ -33,3 +33,6 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[alias]
+    pr = "!php /home/ozh/dev/git-pr/ozh_git_pr.php"
+
