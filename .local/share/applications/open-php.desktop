@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Open PHP File
+Exec=/home/ozh/.local/bin/open-php %F
+Type=Application
+NoDisplay=true
+MimeType=application/x-php;text/x-php;
