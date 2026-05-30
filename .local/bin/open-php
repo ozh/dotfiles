@@ -1,0 +1,10 @@
+#!/bin/bash
+# Open .php files: use PhpStorm if running, otherwise Geany
+# Check that `phpstorm` is in path
+
+if pgrep -x "phpstorm" > /dev/null || pgrep -f "phpstorm" > /dev/null; then
+    # PhpStorm is running - open file in existing instance
+    phpstorm "$@"
+else
+    geany "$@"
+fi
