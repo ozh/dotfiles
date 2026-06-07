@@ -35,4 +35,6 @@
 	process = git-lfs filter-process
 [alias]
     pr = "!php /home/ozh/dev/git-pr/ozh_git_pr.php"
+    # View abbreviated SHA, description, and history graph of the latest 20 commits
+	l = log --color --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an (%G?)>%Creset' --abbrev-commit
 
