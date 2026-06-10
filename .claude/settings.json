@@ -1,0 +1,32 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 2
+  },
+  "theme": "dark",
+  "skipAutoPermissionPrompt": true,
+  "model": "opus",
+  "permissions": {
+    "allow": [
+      "Bash(phpunit*)",
+      "Bash(git *)",
+      "Bash(docker exec *)"
+    ],
+    "ask": [
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean*)",
+      "Bash(git stash drop*)",
+      "Bash(git stash clear*)",
+      "Bash(git branch -D*)",
+      "Bash(docker stop*)",
+      "Bash(docker kill*)",
+      "Bash(docker rm*)",
+      "Bash(docker restart*)",
+      "Bash(docker compose down*)",
+      "Bash(docker-compose down*)"
+    ]
+  }
+}
