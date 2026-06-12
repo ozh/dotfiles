@@ -109,7 +109,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Load the dotfiles
+# Load the dotfiles and override default settings
 for FILE in path history functions alias prompt motd
 do
     [[ -f ~/.config/ozh/$FILE ]] && source ~/.config/ozh/$FILE
