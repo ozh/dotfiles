@@ -18,6 +18,8 @@ alias cd-="cd ~-"
 alias cdp="cd ~-"
 alias term="x-terminal-emulator"
 alias beep="paplay /usr/share/sounds/speech-dispatcher/test.wav"
+alias gp="git pull"
+alias gs="git status"
 alias gsuno="git status -uno"
 alias bat="batcat"
 
