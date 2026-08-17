@@ -1,0 +1,11 @@
+[Unit]
+Description=Reapply xmodmap after suspend
+After=suspend.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/%u/.local/bin/fix-keymap.sh
+
+[Install]
+WantedBy=suspend.target
+

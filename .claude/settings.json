@@ -31,10 +31,10 @@
     "command": "~/.claude/statusline.sh",
     "padding": 2
   },
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "dark",
-  "skipAutoPermissionPrompt": true,
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true
-  }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "skipAutoPermissionPrompt": true
 }

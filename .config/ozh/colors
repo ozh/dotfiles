@@ -1,0 +1,29 @@
+#  ██████╗ ██████╗ ██╗      ██████╗ ██████╗ ███████╗
+# ██╔════╝██╔═══██╗██║     ██╔═══██╗██╔══██╗██╔════╝
+# ██║     ██║   ██║██║     ██║   ██║██████╔╝███████╗
+# ██║     ██║   ██║██║     ██║   ██║██╔══██╗╚════██║
+# ╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║███████║
+#  ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+
+# Loaded after the .bashrc `eval "$(dircolors -b)"`: within LS_COLORS the last
+# occurrence of a key wins, so defaults can be overridden here.
+# Stock values are ow=34;42 and tw=30;42, i.e. green background, unreadable.
+# Underlined so over-permissive dirs still stand out from regular ones (di=01;34).
+#   ow = other-writable          (drwxrwxrwx)
+#   tw = other-writable + sticky (drwxrwxrwt)
+export LS_COLORS="$LS_COLORS:ow=01;34;4:tw=01;34;4:"
+
+# grep match highlighting
+export GREP_COLORS='mt=01;33'
+
+# Colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Colored man pages (via less)
+export LESS='-R'
+export LESS_TERMCAP_md=$'\033[1;36m'     # bold / section headers
+export LESS_TERMCAP_us=$'\033[1;32m'     # underline
+export LESS_TERMCAP_so=$'\033[1;44;37m'  # status bar / highlight
+export LESS_TERMCAP_me=$'\033[0m'        # end md
+export LESS_TERMCAP_ue=$'\033[0m'        # end us
+export LESS_TERMCAP_se=$'\033[0m'        # end so
