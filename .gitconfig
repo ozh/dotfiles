@@ -12,6 +12,7 @@
 	safecrlf = warn
 	longpaths = true
 	ignoreCase = false
+	pager = less -FRX
 [http]
 	postBuffer = 524288000
 [pull]
