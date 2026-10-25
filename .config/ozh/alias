@@ -21,5 +21,6 @@ alias beep="paplay /usr/share/sounds/speech-dispatcher/test.wav"
 alias gp="git pull"
 alias gs="git status"
 alias gsuno="git status -uno"
+alias gl="git log --oneline"
 alias bat="batcat"
 
